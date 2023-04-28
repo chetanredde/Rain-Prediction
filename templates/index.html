@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="{{url_for('static',filename='style.css')}}"
+		/>
+		<!-- <link rel="stylesheet" href="../static/style.css" /> -->
+		<!-- <script defer src="{{url_for('static',filename='script.js')}}"></script> -->
+		<title>Rainfall Prediction</title>
+	</head>
+	<body>
+		<div class="prediction-navbar">
+			<h1>Rain Prediction</h1>
+		</div>
+		<div class="form-container">
+			<form action="{{url_for('predict')}}" method="POST" id="rain-form" onsubmit="return checkForm(this);">
+				<div class="row">
+					<div class="col-25">
+						<label class="form-label">Minimum Temperature</label>
+					</div>
+					<div class="col-75">
+						<input
+							type="text"
+							class="form-control"
+							id="Min_Temp"
+							name="Min_Temp"
+							placeholder="Minimum Temerature in °C"
+						/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="form-label">Maximum Temperature</label>
+					</div>
+					<div class="col-75">
+						<input
+							type="text"
+							class="form-control"
+							id="Max_Temp"
+							name="Max_Temp"
+							placeholder="Maximum Temerature in °C"
+						/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="form-label">Wind Direction</label>
+					</div>
+					<div class="col-75">
+						<input
+							type="text"
+							class="form-control"
+							id="Wind_Direc"
+							name="Wind_Direc"
+							placeholder="Wind_Direction between 1° and 360° (degrees)"
+						/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="form-label">Wind Speed</label>
+					</div>
+					<div class="col-75">
+						<input
+							type="text"
+							class="form-control"
+							id="Wind_Speed"
+							name="Wind_Speed"
+							placeholder="Wind_Speed in meter per second (m/s)"
+						/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="form-label">Humidity</label>
+					</div>
+					<div class="col-75">
+						<input
+							type="text"
+							class="form-control"
+							id="Humidity"
+							name="Humidity"
+							placeholder="Humidity (%) in percentage"
+						/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="form-label">Pressure</label>
+					</div>
+					<div class="col-75">
+						<input
+							type="text"
+							class="form-control"
+							id="Pressure"
+							name="Pressure"
+							placeholder="Pressure (hPa) in the range of 1000 and 1100"
+						/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="form-label">Cloud</label>
+					</div>
+					<div class="col-75">
+						<input
+							type="text"
+							class="form-control"
+							id="Cloud"
+							name="Cloud"
+							placeholder="Cloud (%) in percentage"
+						/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="form-label">Temperature</label>
+					</div>
+					<div class="col-75">
+						<input
+							type="text"
+							class="form-control"
+							id="Temperature_C"
+							name="Temperature_C"
+							placeholder="Current Temperature °C"
+						/>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-25">
+						<label class="form-label">Today Rain</label>
+					</div>
+					<div class="col-75">
+						<select
+							class="form-select"
+							id="Today_Rain"
+							name="Today_Rain"
+							aria-label="Default select example"
+						>
+							<option selected>-- Does it rain today--</option>
+							<option value="Yes">Yes</option>
+							<option value="No">No</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-25">
+						<label for="location" class="location" name="location"
+							>Location</label
+						>
+					</div>
+					<div class="col-75">
+						<select
+							class="location"
+							id="location"
+							name="location"
+							aria-label="Location"
+						>
+							<option selected>Select Location</option>
+							<option value="Vijayawada">Vijayawada</option>
+							<option value="Guntur">Guntur</option>
+							<option value="Amaravathi">Amaravathi</option>
+							<option value="Visakhapatnam">Visakhapatnam</option>
+							<option value="Kurnool">Kurnool</option>
+							<option value="Hyderabad">Hyderabad</option>
+							<option value="Mumbai">Mumbai</option>
+							<option value="Bengaluru">Bengaluru</option>
+							<option value="Delhi">Delhi</option>
+							<option value="London">London</option>
+							<option value="New York">New York</option>
+							<option value="Paris">Paris</option>
+							<option value="Tokyo">Tokyo</option>
+							<option value="Beijing">Beijing</option>
+							<option value="Istanbul">Istanbul</option>
+							<option value="Moscow">Moscow</option>
+							<option value="Berlin">Berlin</option>
+							<option value="Bangkok">Bangkok</option>
+							<option value="Rome">Rome</option>
+							<option value="Madrid">Madrid</option>
+							<option value="Shanghai">Shanghai</option>
+							<option value="Mexico City">Mexico City</option>
+							<option value="Buenos Aires">Buenos Aires</option>
+							<option value="Sydney">Sydney</option>
+							<option value="Johannesburg">Johannesburg</option>
+							<option value="Mawsynram">Mawsynram</option>
+							<option value="Cherrapunji">Cherrapunji</option>
+							<option value="Panama City">Panama City</option>
+							<option value="Puerto Lopez">Puerto Lopez</option>
+							<option value="Sydney">Sydney</option>
+						</select>
+					</div>
+				</div>
+				<div class="row btn--row">
+					<input class="btn-submit" name='myButton'type="submit" value="predict" onclick="return resetForm(this);">
+				</div>
+			</form>
+
+			<div class="results">
+				<p>{{result}}</p>
+			</div>
+		</div>
+	</body>
+</html>
